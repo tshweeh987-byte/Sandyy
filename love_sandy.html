@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>❤️ Sandy ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    text-align: center;
+    background: black;
+    color: white;
+    overflow: hidden;
+}
+
+/* قلوب */
+.heart {
+    position: absolute;
+    color: #ff4d6d;
+    font-size: 20px;
+    animation: float 6s linear infinite;
+}
+
+@keyframes float {
+    0% {transform: translateY(100vh); opacity: 1;}
+    100% {transform: translateY(-10vh); opacity: 0;}
+}
+
+/* بوكس */
+.box {
+    position: relative;
+    z-index: 2;
+    background: rgba(0,0,0,0.5);
+    padding: 25px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-top: 80px;
+}
+
+input, button {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    margin: 10px;
+}
+
+button {
+    background: #ff4d6d;
+    color: white;
+    cursor: pointer;
+}
+
+.hidden { display: none; }
+
+/* انيميشن الاسم */
+.name {
+    font-size: 45px;
+    font-weight: bold;
+    background: linear-gradient(45deg, #ff4d6d, #ff99ac);
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from {text-shadow: 0 0 10px #ff4d6d;}
+    to {text-shadow: 0 0 30px #ff99ac;}
+}
+
+/* كتابة تدريجية */
+.typing {
+    border-right: 2px solid white;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    animation: typing 4s steps(50, end), blink 0.7s infinite;
+}
+
+@keyframes typing {
+    from {width: 0}
+    to {width: 100%}
+}
+
+@keyframes blink {
+    50% {border-color: transparent}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+    <source src="song.mp3" type="audio/mp3">
+</audio>
+
+<div id="login" class="box">
+    <h2>🔒 Enter Password</h2>
+    <input type="password" id="password" placeholder="اكتب الباسورد">
+    <br>
+    <button onclick="checkPass()">دخول</button>
+</div>
+
+<div id="content" class="box hidden">
+    <div class="name">Sandy ❤️</div>
+
+    <p class="typing" style="font-size:20px;">
+        بحبك ي اغلى حاجه فحياتي وعمري م توقعت اني احب حب بشكل دا 🤍
+    </p>
+
+    <h2 id="counter"></h2>
+
+    <br>
+    <button onclick="surprise()">اضغط هنا 😏</button>
+</div>
+
+<script>
+let correctPassword = "sandy";
+
+function checkPass() {
+    let input = document.getElementById("password").value;
+    if (input === correctPassword) {
+        document.getElementById("login").classList.add("hidden");
+        document.getElementById("content").classList.remove("hidden");
+
+        let music = document.getElementById("music");
+        music.currentTime = 35;
+        music.play();
+
+        if (navigator.vibrate) {
+            navigator.vibrate([200, 100, 200]);
+        }
+    } else {
+        alert("غلط 😢");
+    }
+}
+
+// عداد
+let startDate = new Date("2024-02-12");
+
+function updateCounter() {
+    let now = new Date();
+    let diff = now - startDate;
+
+    let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    let hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+
+    document.getElementById("counter").innerText =
+        "عدى " + days + " يوم و " + hours + " ساعة ❤️";
+}
+setInterval(updateCounter, 1000);
+
+// قلوب
+function createHeart() {
+    let heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 6000);
+}
+setInterval(createHeart, 200);
+
+// مفاجأة
+function surprise() {
+    for (let i = 0; i < 30; i++) {
+        createHeart();
+    }
+    alert("بحبك يا Sandy ❤️");
+}
+</script>
+
+</body>
+</html>
